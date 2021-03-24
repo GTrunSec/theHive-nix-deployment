@@ -8,6 +8,6 @@ mkShell {
     nodePackages.bower2nix
   ];
   shellHook = ''
-    bower2nix bower.json ../bower-generated.nix
+    bower2nix bower.json bower-generated.nix
   '';
 }

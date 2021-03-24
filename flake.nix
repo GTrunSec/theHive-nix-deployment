@@ -59,13 +59,13 @@
         theHive_bower = with final;
           (pkgs.buildBowerComponents {
             name = "theHive-bower";
-            generated = ./bower-generated.nix;
+            generated = ./misc/bower-generated.nix;
             src = ./misc;
           });
 
         theHive_static = with final;
           (npmlock2nix.build {
-            src = ./.;
+            src = ./misc;
             buildCommands = [ "npm build" ];
             node_modules_attrs = {
               buildInputs = [ phantomjs2 ];
@@ -97,7 +97,7 @@
 
               buildPhase = ''
 
-                rm -rf build.sbt && cp ${./build.sbt} build.sbt
+                rm -rf build.sbt && cp ${./misc/build.sbt} build.sbt
 
                 substituteInPlace build.sbt \
                 --replace 'command = baseDirectory.value -> "grunt build"' 'command = baseDirectory.value -> "/build/source/frontend/node_modules/.bin/grunt build"' \
@@ -106,7 +106,7 @@
                 --replace 'command = baseDirectory.value -> "npm install"' 'command = baseDirectory.value -> "${nodejs}/bin/npm install"'
 
                 cp -r ${theHive_static}/node_modules frontend/.
-                rm -rf frontend/{package.json,package-lock.json} && cp ${./package.json} frontend/. && cp ${./package-lock.json} frontend/.
+                rm -rf frontend/{package.json,package-lock.json} && cp ${./misc/package.json} frontend/. && cp ${./misc/package-lock.json} frontend/.
                 # WIP
                 cp -r ${theHive_bower}/bower_components frontend/.
 
