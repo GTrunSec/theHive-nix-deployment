@@ -1,0 +1,110 @@
+{
+  "nodes": {
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1606424373,
+        "narHash": "sha256-oq8d4//CJOrVj+EcOaSXvMebvuTkmBJuT5tzlfewUnQ=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "99f1c2157fba4bfe6211a321fd0ee43199025dbf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1614513358,
+        "narHash": "sha256-LakhOx3S1dRjnh0b5Dg3mbZyH0ToC9I8Y2wKSkBaTzU=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5466c5bbece17adaab2d82fae80b46e807611bf3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1615709438,
+        "narHash": "sha256-hDLC1wVzcD+9dt1U9QpbP0v9bOYD9NGczsobHIEhDYw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3a7674c896847d18e598fa5da23d7426cb9be3d2",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "rev": "3a7674c896847d18e598fa5da23d7426cb9be3d2",
+        "type": "indirect"
+      }
+    },
+    "npmlock2nix-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1608299130,
+        "narHash": "sha256-yuwxROMoHIm2yCf9Gyvy2bhzkLxvLaknNI5pw1hvL4I=",
+        "owner": "tweag",
+        "repo": "npmlock2nix",
+        "rev": "7a321e2477d1f97167847086400a7a4d75b8faf8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tweag",
+        "repo": "npmlock2nix",
+        "type": "github"
+      }
+    },
+    "ranz2nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1594668772,
+        "narHash": "sha256-JE7lk0rDP5itZqWOwjuv8N18xLbGc6XL/0u9rMnhXUk=",
+        "owner": "andir",
+        "repo": "ranz2nix",
+        "rev": "637276c3110716d2a798e737fe62e54b37190d50",
+        "type": "github"
+      },
+      "original": {
+        "owner": "andir",
+        "repo": "ranz2nix",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs",
+        "npmlock2nix-src": "npmlock2nix-src",
+        "ranz2nix": "ranz2nix",
+        "sbt-derivation-flake": "sbt-derivation-flake"
+      }
+    },
+    "sbt-derivation-flake": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1602145051,
+        "narHash": "sha256-P71MgJhJoTYba/5fI5xYeKuh/dpQuqlXp3REArciJ58=",
+        "owner": "zaninime",
+        "repo": "sbt-derivation",
+        "rev": "9666b2b589ed68823fff1cefa4cd8a8ab54956c1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zaninime",
+        "repo": "sbt-derivation",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
