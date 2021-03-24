@@ -40,7 +40,9 @@
           shellHook = ''
           '';
         };
+
         defaultPackage = pkgs.theHive;
+
         packages = {
           inherit (pkgs)
             theHive_static
@@ -91,23 +93,31 @@
 
               depsSha256 = "sha256-H8N3/v9CTk8YOOpbNHJ72MK0E7CdkGs63jQW3jDbkxA=";
 
+              HOME = ".";
+
               buildPhase = ''
+
+                rm -rf build.sbt && cp ${./build.sbt} build.sbt
+
                 substituteInPlace build.sbt \
                 --replace 'command = baseDirectory.value -> "grunt build"' 'command = baseDirectory.value -> "/build/source/frontend/node_modules/.bin/grunt build"' \
                 --replace 'command = baseDirectory.value -> "grunt wiredep"' 'command = baseDirectory.value -> "/build/source/frontend/node_modules/.bin/grunt wiredep"' \
-                --replace 'command = baseDirectory.value -> "bower install"' 'command = baseDirectory.value -> "/build/source/frontend/node_modules/.bin/bower install"' \
+                --replace 'command = baseDirectory.value -> "bower install"' 'command = baseDirectory.value -> "/build/source/frontend/node_modules/.bin/bower info"' \
                 --replace 'command = baseDirectory.value -> "npm install"' 'command = baseDirectory.value -> "${nodejs}/bin/npm install"'
 
                 cp -r ${theHive_static}/node_modules frontend/.
                 rm -rf frontend/{package.json,package-lock.json} && cp ${./package.json} frontend/. && cp ${./package-lock.json} frontend/.
                 # WIP
-                # cp -$ {theHive_bower}/ frontend/.
+                cp -r ${theHive_bower}/bower_components frontend/.
 
                 sbt stage
               '';
 
               installPhase = ''
-                mkdir -p $out/{bin,conf,jar}
+                mkdir -p $out/{bin,conf,jar,lib}
+                mv target/universal/stage/bin/* $out/bin/
+                mv target/universal/stage/conf/* $out/conf/
+                mv target/universal/stage/lib/* $out/lib/
                 mv target/scala-2.12/thehive_2.12-4.1.0-1.jar  $out/jar/
               '';
             });

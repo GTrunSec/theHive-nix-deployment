@@ -1,0 +1,12 @@
+#+TITLE: README
+
+* Running theHive!
+
+#+begin_src sh :async t :exports both :results output
+./result/bin/thehive -Dpidfile.path=/dev/null -Dconfig.file=$(pwd)/application.conf
+#+end_src
+
+* WIP cassandra database setup
+* Build.sbt
+
+- remove bower value
