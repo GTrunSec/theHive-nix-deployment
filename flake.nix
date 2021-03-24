@@ -40,7 +40,7 @@
           shellHook = ''
           '';
         };
-        defaultPackage = pkgs.theHive_static;
+        defaultPackage = pkgs.theHive;
         packages = {
           inherit (pkgs)
             theHive_static
@@ -92,7 +92,23 @@
               depsSha256 = "sha256-H8N3/v9CTk8YOOpbNHJ72MK0E7CdkGs63jQW3jDbkxA=";
 
               buildPhase = ''
-                ./sbt stage
+                substituteInPlace build.sbt \
+                --replace 'command = baseDirectory.value -> "grunt build"' 'command = baseDirectory.value -> "/build/source/frontend/node_modules/.bin/grunt build"' \
+                --replace 'command = baseDirectory.value -> "grunt wiredep"' 'command = baseDirectory.value -> "/build/source/frontend/node_modules/.bin/grunt wiredep"' \
+                --replace 'command = baseDirectory.value -> "bower install"' 'command = baseDirectory.value -> "/build/source/frontend/node_modules/.bin/bower install"' \
+                --replace 'command = baseDirectory.value -> "npm install"' 'command = baseDirectory.value -> "${nodejs}/bin/npm install"'
+
+                cp -r ${theHive_static}/node_modules frontend/.
+                rm -rf frontend/{package.json,package-lock.json} && cp ${./package.json} frontend/. && cp ${./package-lock.json} frontend/.
+                # WIP
+                # cp -$ {theHive_bower}/ frontend/.
+
+                sbt stage
+              '';
+
+              installPhase = ''
+                mkdir -p $out/{bin,conf,jar}
+                mv target/scala-2.12/thehive_2.12-4.1.0-1.jar  $out/jar/
               '';
             });
       };
