@@ -1,5 +1,5 @@
 {
-  description = "gomod2nix development environment";
+  description = "TheHive: a Scalable, Open Source and Free Security Incident Response Platform";
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
