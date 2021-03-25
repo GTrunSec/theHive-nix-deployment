@@ -7,6 +7,32 @@
 #+end_src
 
 * WIP cassandra database setup
+
+#+begin_src sh :async t :exports both :results output
+ALTER KEYSPACE system_auth WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1 };
+CREATE KEYSPACE thehive WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' } AND durable_writes = 'true';
+#+end_src
+
+
 * Build.sbt
 
 - remove bower value
+* Debug
+
+#+begin_src sh :async t :exports both :results output
+nodetool -u theHive repair thehive edgestore
+#+end_srcq
+- check cluser
+#+begin_src sh :async t :exports both :results output
+SELECT cluster_name, listen_address FROM system.local
+#+end_src
+
+- create keybase
+#+begin_src sh :async t :exports both :results output
+create KEYSPACE thehive WITH replication = {'class':  'NetworkTopologyStrategy', 'datacenter1': 3};
+#+end_src
+
+#+begin_src sh :async t :exports both :results output
+ALTER KEYSPACE system_auth WITH replication = {'class': 'NetworkTopologyStrategy', 'datacenter1': 3 };
+
+#+end_src

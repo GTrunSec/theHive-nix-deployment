@@ -78,17 +78,21 @@
 
         npmlock2nix = prev.callPackage "${npmlock2nix-src}" { };
 
+        sbt = prev.sbt.override {
+          jre = prev.jdk11;
+        };
+
         theHive = with final;
-          (sbt.mkDerivation
+          (final.sbt.mkDerivation
             rec {
               version = "2021-03-18";
               pname = "TheHive";
               src = fetchFromGitHub {
                 owner = "TheHive-Project";
                 repo = "TheHive";
-                rev = "ce20ee3241767157f829d045938c2d105959becf";
+                rev = "7575943129324e8d7aad9253030fdba05c00ecf7";
                 fetchSubmodules = true;
-                sha256 = "0hnbqkyzisyrmqhxwdlkbfjp8db2mk9y5r94w6pv8givf72bvm27";
+                sha256 = "sha256-uqxbcE2EBK8nIiHfR3zVrtxzcUxPTwDbATHHRSKCigo=";
               };
 
               depsSha256 = "sha256-H8N3/v9CTk8YOOpbNHJ72MK0E7CdkGs63jQW3jDbkxA=";
@@ -116,6 +120,7 @@
               installPhase = ''
                 mkdir -p $out/{bin,conf,jar,lib}
                 mv target/universal/stage/bin/* $out/bin/
+                mv target/universal/stage/conf/application.conf target/universal/stage/conf/application.exmaple.conf
                 mv target/universal/stage/conf/* $out/conf/
                 mv target/universal/stage/lib/* $out/lib/
                 mv target/scala-2.12/thehive_2.12-4.1.0-1.jar  $out/jar/
