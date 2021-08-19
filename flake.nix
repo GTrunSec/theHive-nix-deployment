@@ -45,7 +45,7 @@
 
         packages = {
           inherit (pkgs)
-            theHive_static
+            theHive_frontend
             theHive
             theHive_bower
             ;
@@ -63,7 +63,7 @@
             src = ./misc;
           });
 
-        theHive_static = with final;
+        theHive_frontend = with final;
           (npmlock2nix.build {
             src = ./misc;
             buildCommands = [ "npm build" ];
@@ -85,14 +85,14 @@
         theHive = with final;
           (final.sbt.mkDerivation
             rec {
-              version = "2021-03-18";
+              version = "2021-03-29";
               pname = "TheHive";
               src = fetchFromGitHub {
                 owner = "TheHive-Project";
                 repo = "TheHive";
-                rev = "7575943129324e8d7aad9253030fdba05c00ecf7";
+                rev = "0074446368ba82b55cac5af72ec83fa9b493acb5";
                 fetchSubmodules = true;
-                sha256 = "sha256-uqxbcE2EBK8nIiHfR3zVrtxzcUxPTwDbATHHRSKCigo=";
+                sha256 = "14jyrw7sy43ywhya854hbap9wpkqcna80xf529b6gc3mlb5nigl2";
               };
 
               depsSha256 = "sha256-H8N3/v9CTk8YOOpbNHJ72MK0E7CdkGs63jQW3jDbkxA=";
@@ -109,7 +109,7 @@
                 --replace 'command = baseDirectory.value -> "bower install"' 'command = baseDirectory.value -> "/build/source/frontend/node_modules/.bin/bower info"' \
                 --replace 'command = baseDirectory.value -> "npm install"' 'command = baseDirectory.value -> "${nodejs}/bin/npm install"'
 
-                cp -r ${theHive_static}/node_modules frontend/.
+                cp -r ${theHive_frontend}/node_modules frontend/.
                 rm -rf frontend/{package.json,package-lock.json} && cp ${./misc/package.json} frontend/. && cp ${./misc/package-lock.json} frontend/.
                 # WIP
                 cp -r ${theHive_bower}/bower_components frontend/.
